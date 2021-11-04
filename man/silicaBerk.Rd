@@ -20,7 +20,7 @@ silicaBerk
 \description{
 Load and depth measured with Berkovich diamond tip on fused silica material.
  Data contains only unloading part of indentation curve. The relationship between \emph{Load} (\emph{F}) and \emph{Depth} (\emph{h}) is given by equation
- \eqn{F = \alpha (h - h_p)^{m}}, where  \emph{h_p} is permanent indentation depth after
+ \eqn{F = \alpha (h - h_p)^{m}}, where \eqn{h_{p}} is permanent indentation depth after
  removal of the load, \eqn{\alpha} is fitting constant related to the indenter geometry and
  power law exponent \emph{m} should be from (1,2) interval.
 }

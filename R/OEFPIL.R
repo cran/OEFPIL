@@ -20,7 +20,7 @@
 #'  \itemize{\item \code{y} is the (numerical) response vector,
 #'            \item \code{x} is the predictor,
 #'            \item terms \code{a_1,...,a_n} are parameters of specified model.}
-#'  Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see \emph{Kubacek}).
+#'  Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see (Kubáček, 2000).
 #'
 #'  All calculations are performed assuming normality of a response vector and measurements errors.
 #'
@@ -28,7 +28,7 @@
 #'
 #' A choice of \code{start.val} is important for the convergence of the algorithm. If the \code{OEFPIL} algorithm does not converge, starting values modified by \code{nlsLM} function (\code{useNLS = TRUE}) are recommended (see Example 3).
 #'
-#' The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of independent variable (x) and other to the variance of dependent variable (y).
+#' The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of independent variable (\code{x}) and other to the variance of dependent variable (\code{y}).
 #' If argument \code{CM} is missing, the input covariance matrix is set to a diagonal variance matrix with sample variance on the main diagonal.
 #'
 #' @return Returns an object of class \code{"OEFPIL"}. It is a list containing the following components
@@ -49,9 +49,9 @@
 #'
 #' @note The symbol \code{pi} is reserved for the Ludolf's constant. So naming one of the model´s parameters by this symbol results in constant entry of the model.
 #'
-#' @references Kubacek, L. and Kubackova, L. (2000) \emph{Statistika a metrologie}. Univerzita Palackeho v Olomouci.
+#' @references Kubáček, L. and Kubáčková, L. (2000) \emph{Statistika a metrologie}. Univerzita Palackého v Olomouci.
 #'
-#'    Koning, R., Wimmer, G. and Witkovsky, V. (2014) \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
+#'    Köning, R., Wimmer, G. and Witkovský, V. (2014) \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
 #'     Measurement Science and Technology.
 #'
 #' @seealso \code{\link{NanoIndent.OEFPIL}} and function \code{\link[minpack.lm]{nlsLM}} from \code{minpack.lm} package for nonlinear least square algorithms.
@@ -552,7 +552,7 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = FALSE,
     Se <- diag(Esing$d)
     Seinv <- diag(1 / (Esing$d))
     Fmat <- Ve %*% Seinv
-    G <- forwardsolve(t(Lmat), Ue)
+    G <- backsolve(t(Lmat), Ue)
     Q21 <- Fmat %*% t(G)
     Q11 <- chol2inv(Lmat) - G %*% t(G)
     Q22 <- - Fmat %*% t(Fmat)
@@ -586,7 +586,7 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = FALSE,
     }
     ## control of correctness of updated (improved) values (L1)
 
-    # The final number of iterations including zero step.
+    # The final number of performed iterations.
     it_num <- it_num + 1
 
     ## Condition which save and output all values of estimates in process of iteration
@@ -598,6 +598,12 @@ OEFPILIter <- function(y0, x0, L, CM, max.iter = 100, see.iter.val = FALSE,
       print(data.frame(L1, row.names = ""))
       print(- Q22)
       print("##########################################")
+    }
+
+    if (it_num == max.iter) {
+      logg <- paste("The maximum number of iterations (i.e. ", it_num,") has been reached.", "\n", sep = "")
+      message(logg)
+      logs <- paste(na.omit(logs), logg, sep = "//")
     }
 
     if (!missing(save.file.name)) {

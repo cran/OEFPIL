@@ -53,7 +53,7 @@ Models for OEPFIL function are specified symbolically. A typical model has the f
  \itemize{\item \code{y} is the (numerical) response vector,
            \item \code{x} is the predictor,
            \item terms \code{a_1,...,a_n} are parameters of specified model.}
- Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see \emph{Kubacek}).
+ Function \code{f} is known nonlinear function with continuous second partial derivatives with respect to \code{x} and parameters \code{a_1,...a_n} (for more details see (Kubáček, 2000).
 
  All calculations are performed assuming normality of a response vector and measurements errors.
 
@@ -61,7 +61,7 @@ Models for OEPFIL function are specified symbolically. A typical model has the f
 
 A choice of \code{start.val} is important for the convergence of the algorithm. If the \code{OEFPIL} algorithm does not converge, starting values modified by \code{nlsLM} function (\code{useNLS = TRUE}) are recommended (see Example 3).
 
-The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of independent variable (x) and other to the variance of dependent variable (y).
+The \code{CM} has to be a \code{2n} covariance matrix (where \code{n} is length of \code{data}) of following structure: first \code{n} elements of the diagonal correspond to the variance of independent variable (\code{x}) and other to the variance of dependent variable (\code{y}).
 If argument \code{CM} is missing, the input covariance matrix is set to a diagonal variance matrix with sample variance on the main diagonal.
 }
 \note{
@@ -110,9 +110,9 @@ summary(output.form)
 
 }
 \references{
-Kubacek, L. and Kubackova, L. (2000) \emph{Statistika a metrologie}. Univerzita Palackeho v Olomouci.
+Kubáček, L. and Kubáčková, L. (2000) \emph{Statistika a metrologie}. Univerzita Palackého v Olomouci.
 
-   Koning, R., Wimmer, G. and Witkovsky, V. (2014) \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
+   Köning, R., Wimmer, G. and Witkovský, V. (2014) \emph{Ellipse fitting by nonlinear constraints to demodulate quadrature homodyne interferometer signals and to determine the statistical uncertainty of the interferometric phase}.
     Measurement Science and Technology.
 }
 \seealso{
